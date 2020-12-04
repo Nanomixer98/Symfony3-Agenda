@@ -1,0 +1,24 @@
+agenda_index:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+
+all_contactos:
+    path: /contactos
+    defaults: { _controller: AppBundle:Contacto:viewAll }
+
+# Rutas para los contactos
+view_contacto:
+    path: /view/{id}
+    defaults: { _controller: AppBundle:Contacto:view }
+
+add_contacto:
+    path: /add
+    defaults: { _controller: AppBundle:Contacto:add }
+
+edit_contacto:
+    path: /edit/{id}
+    defaults: { _controller: AppBundle:Contacto:edit }
+
+delete_contacto:
+    path: /delete/{id}
+    defaults: { _controller: AppBundle:Contacto:delete }

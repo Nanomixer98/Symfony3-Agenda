@@ -1,0 +1,32 @@
+{% extends "@App/layout.html.twig" %}
+{% block content %}
+	<h1 class="text-center">Lista de contactos</h1>
+	<ul class="list-group">
+		{% for contact in contactos %}
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<h5>
+					<i class="fa fa-user" aria-hidden="true"></i>
+					{{contact.nombre}}
+				</h5>
+
+				<div type="button" class="btn-group" role="group" aria-label="Basic example">
+					<a type="button" class="btn btn-info" href="{{ path('view_contacto', {"id":contact.id}) }}">
+						<i class="fa fa-eye" aria-hidden="true"></i>
+					</a>
+					<a type="button" class="btn btn-primary" href="{{ path('edit_contacto', {"id":contact.id}) }}">
+						<i class="fa fa-pencil-square" aria-hidden="true"></i>
+					</a>
+					<a type="button" class="btn btn-danger" href="{{ path('delete_contacto', {"id":contact.id}) }}">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</a>
+				</div>
+
+			</li>
+		{% endfor %}
+		<div class="dropdown-divider"></div>
+		<a class="btn btn-success" href="{{ path('add_contacto') }}">
+			Nuevo Contacto
+			<i class="fa fa-plus-circle" aria-hidden="true"></i>
+		</a>
+	</ul>
+{% endblock %}

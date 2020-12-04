@@ -1,0 +1,47 @@
+AppBundle\Entity\Telefono:
+    type: entity
+    table: telefono
+    indexes:
+        fk_telefono_contacto_idx:
+            columns:
+                - contacto_id
+        fk_telefono_etiqueta_idx:
+            columns:
+                - etiqueta_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        numero:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+    manyToOne:
+        contacto:
+            targetEntity: Contacto
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                contacto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        etiqueta:
+            targetEntity: Etiqueta
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                etiqueta_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
