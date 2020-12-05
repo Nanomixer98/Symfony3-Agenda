@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Telefono
  */
@@ -27,6 +29,16 @@ class Telefono
      */
     private $etiqueta;
 
+    
+    protected $telefono;
+
+    public function __construct() {
+        $this->telefono = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->numero;
+    }
 
     /**
      * Get id

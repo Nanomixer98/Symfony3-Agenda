@@ -17,4 +17,9 @@ AppBundle\Entity\Contacto:
             length: 100
             options:
                 fixed: false
+    oneToMany:
+        telefono:
+                targetEntity: Telefono
+                mappedBy: contacto
+                cascade: [ "persist" ]
     lifecycleCallbacks: {  }

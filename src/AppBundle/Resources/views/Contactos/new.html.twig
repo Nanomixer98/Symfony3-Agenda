@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_row(form.description) }}
+
+    <h3>Tags</h3>
+    <ul class="tags">
+        {% for tag in form.tags %}
+            <li>{{ form_row(tag.name) }}</li>
+        {% endfor %}
+    </ul>
+{{ form_end(form) }}

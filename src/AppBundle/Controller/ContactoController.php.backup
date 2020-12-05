@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contacto;
-use AppBundle\Entity\Etiqueta;
 use AppBundle\Entity\Telefono;
 use AppBundle\Form\ContactoType;
 use AppBundle\Form\TelefonoType;
@@ -17,44 +16,6 @@ class ContactoController extends Controller
     public function indexAction(Request $request)
     {
         return $this->render('@App/layout.html.twig');
-    }
-
-    public function newAction(Request $request) {
-
-        $contacto = new Contacto();
-        $contacto->setNombre("Alexis Nava");
-
-        $tel1 = new Telefono();
-        $tel1->setNumero('123456780');
-        
-        $em = $this->getDoctrine()->getManager();
-        $tag1 = new Etiqueta();
-        $tag1->setNombre('Mobil');
-
-        $tel1->setEtiqueta($tag1);
-
-        $tel1->setContacto($contacto);
-
-        $em->persist($contacto);
-        $em->persist($tel1);
-        $em->flush();
-
-        // $tel2 = new Telefono();
-        // $tag2 = new Etiqueta();
-        // $tag2->setNombre('Trabajo');
-        // $tel2->setNumero('987654321');
-        // $tel2->setEtiqueta($tag1);
-
-
-
-        // $form = $this->createForm(ContactoType::class, $contacto);
-
-        // $form->handleRequest($request);
-
-        die();
-        // return $this->render('@App/Contactos/new.html.twig', [
-        //     // 'form' => $form->createView(),
-        // ]);
     }
 
     public function viewAllAction() {

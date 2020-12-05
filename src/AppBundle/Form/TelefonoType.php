@@ -15,9 +15,7 @@ class TelefonoType extends AbstractType
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('contacto', ContactoType::class);
-        
+    {   
         $builder
         ->add('numero', TextType::class, [
             "label" => "Teléfono:",
@@ -30,11 +28,6 @@ class TelefonoType extends AbstractType
             "class" => "AppBundle:Etiqueta",
             "attr" => [
                 "class" => "form-control"
-            ]
-        ])
-        ->add('Guardar', SubmitType::class, [
-            "attr" => [
-                "class" => "form-submit btn btn-success mt-3"
             ]
         ]);
 

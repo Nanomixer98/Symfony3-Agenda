@@ -17,6 +17,8 @@ class Contacto
      */
     private $nombre;
 
+    protected $telefono;
+
 
     /**
      * Get id
@@ -50,6 +52,14 @@ class Contacto
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Get the value of telefono
+     */ 
+    public function getTelefono()
+    {
+        return $this->telefono;
     }
 }
 

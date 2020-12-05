@@ -30,15 +30,16 @@ AppBundle\Entity\Telefono:
             cascade: ["persist"]
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: telefono
             joinColumns:
                 contacto_id:
+                    name: contacto_id
                     referencedColumnName: id
                     
             orphanRemoval: false
         etiqueta:
             targetEntity: Etiqueta
-            cascade: {  }
+            cascade: ["persist"]
             fetch: LAZY
             mappedBy: null
             inversedBy: null
