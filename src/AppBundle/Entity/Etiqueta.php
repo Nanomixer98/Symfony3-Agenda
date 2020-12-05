@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Etiqueta
  */
@@ -17,6 +19,15 @@ class Etiqueta
      */
     private $nombre;
 
+    protected $etiqueta;
+
+    public function __construct() {
+        $this->etiqueta = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->nombre;
+    }
 
     /**
      * Get id

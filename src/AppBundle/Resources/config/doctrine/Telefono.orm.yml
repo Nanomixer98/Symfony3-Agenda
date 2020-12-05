@@ -1,6 +1,7 @@
 AppBundle\Entity\Telefono:
     type: entity
     table: telefono
+    repositoryClass: AppBundle\Repository\TelefonoRepository
     indexes:
         fk_telefono_contacto_idx:
             columns:
@@ -26,13 +27,14 @@ AppBundle\Entity\Telefono:
     manyToOne:
         contacto:
             targetEntity: Contacto
-            cascade: {  }
+            cascade: ["persist"]
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
                 contacto_id:
                     referencedColumnName: id
+                    
             orphanRemoval: false
         etiqueta:
             targetEntity: Etiqueta
@@ -41,6 +43,7 @@ AppBundle\Entity\Telefono:
             mappedBy: null
             inversedBy: null
             joinColumns:
+                
                 etiqueta_id:
                     referencedColumnName: id
             orphanRemoval: false

@@ -2,11 +2,12 @@ agenda_index:
     path: /
     defaults: { _controller: AppBundle:Default:index }
 
+
+# Rutas para los contactos
 all_contactos:
     path: /contactos
     defaults: { _controller: AppBundle:Contacto:viewAll }
 
-# Rutas para los contactos
 view_contacto:
     path: /view/{id}
     defaults: { _controller: AppBundle:Contacto:view }
