@@ -47,14 +47,14 @@ class ContactoController extends Controller
 
 
 
-        // $form = $this->createForm(ContactoType::class, $contacto);
+        $form = $this->createForm(ContactoType::class, $contacto);
 
-        // $form->handleRequest($request);
+        $form->handleRequest($request);
 
-        die();
-        // return $this->render('@App/Contactos/new.html.twig', [
-        //     // 'form' => $form->createView(),
-        // ]);
+        // die();
+        return $this->render('@App/Contactos/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     public function viewAllAction() {

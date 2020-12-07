@@ -32,13 +32,13 @@ class Telefono
     
     protected $telefono;
 
-    public function __construct() {
-        $this->telefono = new ArrayCollection();
-    }
+    // public function __construct() {
+    //     $this->telefono = new ArrayCollection();
+    // }
 
-    public function __toString() {
-        return $this->numero;
-    }
+    // public function __toString() {
+    //     return $this->numero;
+    // }
 
     /**
      * Get id

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Contacto
  */
@@ -19,6 +21,10 @@ class Contacto
 
     protected $telefono;
 
+    public function __construct()
+    {
+        $this->telefono = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -55,11 +61,24 @@ class Contacto
     }
 
     /**
+     * Set the value of telefono
+     *
+     * @return  self
+     */ 
+    public function setTelefono($telefono)
+    {
+        $this->telefono[] = $telefono;
+
+        return $this;
+    }
+
+    /**
      * Get the value of telefono
      */ 
     public function getTelefono()
     {
         return $this->telefono;
     }
+
 }
 

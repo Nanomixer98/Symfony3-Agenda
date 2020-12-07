@@ -23,11 +23,13 @@ class ContactoType extends AbstractType
             "attr" => [
                 "class" => "form-name form-control"
             ]
-        ])
+        ]);
+
+        $builder
         ->add('numeros', CollectionType::class. [
             'entry_type' => TelefonoType::class,
             'entry_options' => [
-                'laberl' => false
+                'label' => false
             ]
         ]);
     }/**

@@ -1,10 +1,10 @@
 {{ form_start(form) }}
-    {{ form_row(form.description) }}
+    {{ form_row(form.nombre) }}
 
     <h3>Tags</h3>
     <ul class="tags">
-        {% for tag in form.tags %}
-            <li>{{ form_row(tag.name) }}</li>
+        {% for numero in form.numeros %}
+            <li>{{ form_row(tag.numero) }}</li>
         {% endfor %}
     </ul>
 {{ form_end(form) }}

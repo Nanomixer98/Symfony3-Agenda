@@ -37,6 +37,8 @@ AppBundle\Entity\Telefono:
                     referencedColumnName: id
                     
             orphanRemoval: false
+
+    oneToOne:
         etiqueta:
             targetEntity: Etiqueta
             cascade: ["persist"]
