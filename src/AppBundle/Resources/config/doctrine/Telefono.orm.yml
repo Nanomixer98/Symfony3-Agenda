@@ -37,16 +37,13 @@ AppBundle\Entity\Telefono:
                     referencedColumnName: id
                     
             orphanRemoval: false
-
-    oneToOne:
         etiqueta:
             targetEntity: Etiqueta
             cascade: ["persist"]
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: telefono
             joinColumns:
-                
                 etiqueta_id:
                     referencedColumnName: id
             orphanRemoval: false

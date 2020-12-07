@@ -23,14 +23,22 @@ class ContactoType extends AbstractType
             "attr" => [
                 "class" => "form-name form-control"
             ]
+        ])
+        ->add('Guardar', SubmitType::class, [
+            "attr" => [
+                "class" => "form-submit btn btn-success mt-3"
+            ]
         ]);
 
         $builder
-        ->add('numeros', CollectionType::class. [
+        ->add('telefono', CollectionType::class, [
             'entry_type' => TelefonoType::class,
             'entry_options' => [
                 'label' => false
-            ]
+            ],
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false,
         ]);
     }/**
      * {@inheritdoc}

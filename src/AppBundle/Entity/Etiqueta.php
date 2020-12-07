@@ -19,6 +19,8 @@ class Etiqueta
      */
     private $nombre;
 
+    private $telefono;
+
     protected $etiqueta;
 
     public function __construct() {
@@ -61,6 +63,14 @@ class Etiqueta
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Get the value of telefono
+     */ 
+    public function getTelefono()
+    {
+        return $this->telefono;
     }
 }
 

@@ -19,45 +19,43 @@ class ContactoController extends Controller
         return $this->render('@App/layout.html.twig');
     }
 
-    public function newAction(Request $request) {
+    public function newAction(Request $request)
+    {
 
         $contacto = new Contacto();
-        $contacto->setNombre("Alexis Nava");
-
-        $tel1 = new Telefono();
-        $tel1->setNumero('123456780');
-        
-        $em = $this->getDoctrine()->getManager();
-        $tag1 = new Etiqueta();
-        $tag1->setNombre('Mobil');
-
-        $tel1->setEtiqueta($tag1);
-
-        $tel1->setContacto($contacto);
-
-        $em->persist($contacto);
-        $em->persist($tel1);
-        $em->flush();
-
-        // $tel2 = new Telefono();
-        // $tag2 = new Etiqueta();
-        // $tag2->setNombre('Trabajo');
-        // $tel2->setNumero('987654321');
-        // $tel2->setEtiqueta($tag1);
-
-
-
+        $tel = new Telefono();
+        $contacto->getTelefono()->add($tel);
         $form = $this->createForm(ContactoType::class, $contacto);
-
         $form->handleRequest($request);
 
-        // die();
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $contacto = new Contacto();
+            $contacto->setNombre($form->get("nombre")->getData());
+            $tels = $form->get("telefono")->getData();
+            
+            $em = $this->getDoctrine()->getManager();
+
+            foreach ($tels as $tel) {
+                $telToSave = new Telefono();
+                $telToSave->setNumero($tel->getNumero());
+                $telToSave->setEtiqueta($tel->getEtiqueta());
+                $contacto->addTelefono($telToSave);
+                $em->persist($contacto);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute("all_contactos");
+
+        }
+
         return $this->render('@App/Contactos/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    public function viewAllAction() {
+    public function viewAllAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $contacto_repo = $em->getRepository("AppBundle:Contacto");
         $contactos = $contacto_repo->findAll();
@@ -69,22 +67,24 @@ class ContactoController extends Controller
         ]);
     }
 
-    public function viewAction($id) {
+    public function viewAction($id)
+    {
 
         die();
     }
 
-    public function addAction(Request $request) {
-        
+    public function addAction(Request $request)
+    {
+
         $contacto = new Contacto();
-        $contacto_form = $this->createForm(ContactoType::class,$contacto);
+        $contacto_form = $this->createForm(ContactoType::class, $contacto);
         $contacto_form->handleRequest($request);
 
         $telefono = new Telefono();
-        $telefono_form = $this->createForm(TelefonoType::class,$telefono);
+        $telefono_form = $this->createForm(TelefonoType::class, $telefono);
         $telefono_form->handleRequest($request);
 
-        if ( $telefono_form->isSubmitted() && $telefono_form->isValid() ) { 
+        if ($telefono_form->isSubmitted() && $telefono_form->isValid()) {
 
             $contacto = new Contacto();
             $contacto->setNombre($telefono_form->get("contacto")->get("nombre")->getData());
@@ -105,7 +105,6 @@ class ContactoController extends Controller
             $em->flush();
 
             return $this->redirectToRoute("all_contactos");
-
         }
 
         return $this->render('@App/Contactos/addContact.html.twig', [
@@ -114,7 +113,8 @@ class ContactoController extends Controller
         ]);
     }
 
-    public function editAction(Request $request, $id) {
+    public function editAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $telefono_repo = $em->getRepository("AppBundle:Telefono");
         $auxId = $telefono_repo->getContacto($id);
@@ -123,10 +123,10 @@ class ContactoController extends Controller
         $contact_repo = $em->getRepository("AppBundle:Contacto");
         $contacto = $contact_repo->find($id);
 
-        $telefono_form = $this->createForm(TelefonoType::class,$telefono);
+        $telefono_form = $this->createForm(TelefonoType::class, $telefono);
         $telefono_form->handleRequest($request);
 
-        if ( $telefono_form->isSubmitted() && $telefono_form->isValid() ) { 
+        if ($telefono_form->isSubmitted() && $telefono_form->isValid()) {
 
             $contacto->setNombre($telefono_form->get("contacto")->get("nombre")->getData());
 
@@ -145,15 +145,15 @@ class ContactoController extends Controller
             $em->flush();
 
             return $this->redirectToRoute("all_contactos");
-
         }
-        
+
         return $this->render('@App/Contactos/editContact.html.twig', [
             "telefonoForm" => $telefono_form->createView()
         ]);
     }
 
-    public function deleteAction($id) {
+    public function deleteAction($id)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $contacto_repo = $em->getRepository("AppBundle:Contacto");
@@ -163,5 +163,4 @@ class ContactoController extends Controller
 
         return $this->redirectToRoute('all_contactos');
     }
-
 }

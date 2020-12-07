@@ -17,4 +17,9 @@ AppBundle\Entity\Etiqueta:
             length: 45
             options:
                 fixed: false
+    oneToMany:
+        telefono:
+                targetEntity: Telefono
+                mappedBy: etiqueta
+                cascade: [ "persist" ]
     lifecycleCallbacks: {  }

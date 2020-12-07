@@ -30,7 +30,7 @@ class Telefono
     private $etiqueta;
 
     
-    protected $telefono;
+    // protected $telefono;
 
     // public function __construct() {
     //     $this->telefono = new ArrayCollection();
@@ -121,5 +121,12 @@ class Telefono
     {
         return $this->etiqueta;
     }
+
+    public function addContacto(Contacto $contacto) {
+        if ( !$this->contacto->contains($contacto) ) {
+            $this->contacto->add($contacto);
+        }
+    }
+
 }
 

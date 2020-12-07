@@ -61,11 +61,11 @@ class Contacto
     }
 
     /**
-     * Set the value of telefono
+     * Set the value of telefonos
      *
      * @return  self
      */ 
-    public function setTelefono($telefono)
+    public function setTelefonos($telefono)
     {
         $this->telefono[] = $telefono;
 
@@ -73,11 +73,24 @@ class Contacto
     }
 
     /**
-     * Get the value of telefono
+     * Get the value of telefonos
      */ 
     public function getTelefono()
     {
         return $this->telefono;
+    }
+
+    public function addTelefono(Telefono $telefono)
+    {
+
+        $telefono->setContacto($this);
+
+        $this->telefono->add($telefono);
+    }
+
+    public function removeTelefono(Telefono $telefono)
+    {
+        $this->telefono->removeElement($telefono);
     }
 
 }
