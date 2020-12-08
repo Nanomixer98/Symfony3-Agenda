@@ -7,7 +7,9 @@ use AppBundle\Entity\Etiqueta;
 use AppBundle\Entity\Telefono;
 use AppBundle\Form\ContactoType;
 use AppBundle\Form\TelefonoType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\Dumper\Dumper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,18 +21,11 @@ class ContactoController extends Controller
         return $this->render('@App/layout.html.twig');
     }
 
-    public function newAction(Request $request)
-    {
-        die();
-    }
-
     public function viewAllAction()
     {
         $em = $this->getDoctrine()->getManager();
         $contacto_repo = $em->getRepository("AppBundle:Contacto");
         $contactos = $contacto_repo->findAll();
-        $telefono_repo = $em->getRepository("AppBundle:Telefono");
-        $telefonos = $telefono_repo->findAll();
 
         return $this->render('@App/Contactos/viewAll.html.twig', [
             "contactos" => $contactos
@@ -80,39 +75,61 @@ class ContactoController extends Controller
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $telefono_repo = $em->getRepository("AppBundle:Telefono");
-        $auxId = $telefono_repo->getContacto($id);
-        $telefono = $telefono_repo->find($auxId);
+        $contacto_repo = $em->getRepository("AppBundle:Contacto");
+        $contacto = $contacto_repo->find($id);
 
-        $contact_repo = $em->getRepository("AppBundle:Contacto");
-        $contacto = $contact_repo->find($id);
-
-        $telefono_form = $this->createForm(TelefonoType::class, $telefono);
-        $telefono_form->handleRequest($request);
-
-        if ($telefono_form->isSubmitted() && $telefono_form->isValid()) {
-
-            $contacto->setNombre($telefono_form->get("contacto")->get("nombre")->getData());
-
-            // Cargar la repo de etiquetas
-            $em = $this->getDoctrine()->getManager();
-            $etiqueta_repo = $em->getRepository("AppBundle:Etiqueta");
-            $etiqueta = $etiqueta_repo->find($telefono_form->get("etiqueta")->getData());
-
-            // Cargaar informacion para el nuevo telefono
-            $telefono->setContacto($contacto);
-            $telefono->setNumero($telefono_form->get("numero")->getData());
-            $telefono->setEtiqueta($etiqueta);
-
-            // Guardar el nuevo telefono
-            $em->persist($telefono);
-            $em->flush();
-
-            return $this->redirectToRoute("all_contactos");
+        if (!$contacto) {
+            throw $this->createNotFoundException('No contacto found for id '.$id);
         }
 
-        return $this->render('@App/Contactos/editContact.html.twig', [
-            "telefonoForm" => $telefono_form->createView()
+        $originalTelefonos = new ArrayCollection();
+
+        foreach ($contacto->getTelefono() as $telefono) {
+            $originalTelefonos->add($telefono);
+        }
+
+        
+        $form = $this->createForm(ContactoType::class, $contacto);
+        $form->handleRequest($request);
+        
+        // dump($contacto->getTelefono());
+        // dump($form->get("telefono")->getData());
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($originalTelefonos as $telefono) {
+                if ( false === $contacto->getTelefono()->contains($telefono) ) {
+                    $telefono->getContacto()->removeTelefono($telefono);
+
+                    $telefono->setContacto(null);
+
+                    $em->persist($telefono);
+
+                    $em->remove($telefono);
+                }
+            }
+
+            // $contacto->setNombre($form->get("nombre")->getData());
+            
+            $em->persist($contacto);
+            $em->flush();
+            
+            // $tels = $form->get("telefono")->getData();
+            // dump($tels);
+            // foreach ($tels as $tel) {
+            //     $contacto->addTelefono($tel);      
+            //     $em = $this->getDoctrine()->getManager();
+            //     $em->persist($contacto);
+            //     $em->flush();
+            // }
+
+            return $this->redirectToRoute("all_contactos");
+
+        }
+
+        // die();
+        return $this->render('@App/Contactos/add.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

@@ -1,13 +1,15 @@
 {% extends "@App/layout.html.twig" %}
 {% block content %}
     {{ form_start(form) }}
-    {{ form_row(form.nombre) }}
+    <h3>{{ form_row(form.nombre) }}</h3>
 
     <h3>Numeros</h3>
     <ul class="numeros" data-prototype="{{ form_widget(form.telefono.vars.prototype)|e('html_attr') }}">
         {% for tel in form.telefono %}
-            <li>{{ form_row(tel.numero) }}</li>
-            <li>{{ form_row(tel.etiqueta) }}</li>
+            <li>
+                {{ form_row(tel.numero) }}
+                {{ form_row(tel.etiqueta) }}
+            </li>
         {% endfor %}
     </ul>
     {{ form_end(form) }}
@@ -24,7 +26,7 @@
 
         jQuery(document).ready(function () { 
             // Get the ul that holds the collection of tags
-            $collectionHolder = $('ul.tags');
+            $collectionHolder = $('ul.numeros');
 
             // add a delete link to all of the existing tag form li elements
             $collectionHolder.find('li').each(function() {
@@ -45,6 +47,7 @@
                 addTagForm($collectionHolder, $newLinkLi);
             });
         });
+        
 
         function addTagForm($collectionHolder, $newLinkLi) {
             // Get the data-prototype explained earlier

@@ -1,0 +1,35 @@
+{% extends "@App/layout.html.twig" %}
+{% block content %}
+	<h1 class="text-center">Lista de etiquetas</h1>
+	<ul class="list-group">
+		{% for tag in etiquetas %}
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<h5>
+					<i class="fa fa-user" aria-hidden="true"></i>
+					{{tag.nombre}}
+				</h5>
+
+				<div type="button" class="btn-group" role="group" aria-label="Basic example">
+					<a type="button" class="btn btn-primary" href="{{ path('edit_etiqueta', {"id":tag.id}) }}">
+						<i class="fa fa-pencil-square" aria-hidden="true"></i>
+					</a>
+					{% if tag.telefono| length == 0 %}
+						<a type="button" class="btn btn-danger" href="{{ path('delete_etiqueta', {"id":tag.id}) }}">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</a>
+					{% else %}
+						<a type="button" class="btn btn-warning">
+							<i class="fa fa-exclamation" aria-hidden="true"></i>
+						</a>
+					{% endif %}
+				</div>
+
+			</li>
+		{% endfor %}
+		<div class="dropdown-divider"></div>
+		<a class="btn btn-success" href="{{ path('add_etiqueta') }}">
+			Nueva Etiqueta
+			<i class="fa fa-plus-circle" aria-hidden="true"></i>
+		</a>
+	</ul>
+{% endblock %}

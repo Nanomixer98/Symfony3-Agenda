@@ -39,7 +39,7 @@ AppBundle\Entity\Telefono:
             orphanRemoval: false
         etiqueta:
             targetEntity: Etiqueta
-            cascade: ["persist"]
+            cascade: { }
             fetch: LAZY
             mappedBy: null
             inversedBy: telefono

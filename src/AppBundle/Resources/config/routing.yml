@@ -23,3 +23,20 @@ edit_contacto:
 delete_contacto:
     path: /delete/{id}
     defaults: { _controller: AppBundle:Contacto:delete }
+
+# Rutas para etiquetas
+all_etiquetas:
+    path: /etiquetas
+    defaults: { _controller: AppBundle:Etiqueta:viewAll }
+
+add_etiqueta:
+    path: /etiquetas/add
+    defaults: { _controller: AppBundle:Etiqueta:add }
+
+edit_etiqueta:
+    path: /etiquetas/edit/{id}
+    defaults: { _controller: AppBundle:Etiqueta:edit }
+
+delete_etiqueta:
+    path: /etiquetas/delete/{id}
+    defaults: { _controller: AppBundle:Etiqueta:delete }
