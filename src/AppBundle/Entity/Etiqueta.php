@@ -25,6 +25,7 @@ class Etiqueta
 
     public function __construct() {
         $this->etiqueta = new ArrayCollection();
+        $this->telefono = new ArrayCollection();
     }
 
     public function __toString() {

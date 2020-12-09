@@ -65,7 +65,7 @@ class Contacto
      *
      * @return  self
      */ 
-    public function setTelefonos($telefono)
+    public function setTelefono($telefono)
     {
         $this->telefono[] = $telefono;
 

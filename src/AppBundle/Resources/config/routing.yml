@@ -8,9 +8,13 @@ all_contactos:
     path: /contactos
     defaults: { _controller: AppBundle:Contacto:viewAll }
 
+view_all_info:
+    path: /contactos/view
+    defaults: { _controller: AppBundle:Contacto:viewAllInfo }
+
 view_contacto:
-    path: /view/{id}
-    defaults: { _controller: AppBundle:Contacto:view }
+    path: /viewOne/{id}
+    defaults: { _controller: AppBundle:Contacto:viewOne }
 
 add_contacto:
     path: /add

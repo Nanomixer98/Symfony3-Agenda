@@ -1,0 +1,27 @@
+{% extends "@App/layout.html.twig" %}
+{% block content %}
+	<h1 class="text-center">{{contacto.nombre}}</h1>
+	<table class="table mt-3">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Numeros</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr>
+				<td class="align-middle">
+
+					{% for telefono in contacto.telefono %}
+						{{telefono.numero}}
+						<br>
+						<small>{{telefono.etiqueta}}</small>
+						<br><br>
+					{% endfor %}
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+{% endblock %}

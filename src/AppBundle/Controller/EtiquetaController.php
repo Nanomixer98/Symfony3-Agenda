@@ -67,7 +67,7 @@ class EtiquetaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $etiqueta_repo = $em->getRepository("AppBundle:Etiqueta");
         $etiqueta = $etiqueta_repo->find($id);
-        if ( count($etiqueta->getEntryTags()) == 0 ) {
+        if ( count($etiqueta->getTelefono()) == 0 ) {
             $em->remove($etiqueta);
             $em->flush();
         }

@@ -31,11 +31,27 @@ class ContactoController extends Controller
             "contactos" => $contactos
         ]);
     }
-
-    public function viewAction($id)
+    
+    public function viewAllInfoAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $contacto_repo = $em->getRepository("AppBundle:Contacto");
+        $contactos = $contacto_repo->findAll();
 
-        die();
+        return $this->render('@App/Contactos/view.html.twig', [
+            "contactos" => $contactos
+        ]);
+    }
+
+    public function viewOneAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $contacto_repo = $em->getRepository("AppBundle:Contacto");
+        $contacto = $contacto_repo->find($id);
+
+        return $this->render('@App/Contactos/viewOne.html.twig', [
+            "contacto" => $contacto
+        ]);
     }
 
     public function addAction(Request $request)
